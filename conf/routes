@@ -1,2 +1,11 @@
-GET         /toggl        controllers.TEAHubController.togglProjects
-GET        /assets/*file        controllers.Assets.at(path = "/public", file)
+GET     /                       controllers.UIController.index
+GET     /projects               controllers.UIController.list
+GET     /projectsSetup          controllers.UIController.setup
+GET     /project_details        controllers.UIController.details
+GET     /profile                controllers.UIController.profile
+GET     /new_project            controllers.UIController.newProject
+GET     /user_project           controllers.UIController.usersProject
+GET     /issues                 controllers.UIController.issues
+GET     /user_management        controllers.UIController.management
+GET     /toggl                  controllers.TEAHubController.togglProjects
+GET     /assets/*file           controllers.Assets.at(path = "/public", file)

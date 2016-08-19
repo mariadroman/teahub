@@ -22,6 +22,7 @@ class TEAHubController(togglService: TogglService)(implicit executionContext: Ex
     result.map {
       theResult =>
         Ok(Json.obj("Projects" -> theResult))
+
     }
   }
 }

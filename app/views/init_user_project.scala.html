@@ -1,0 +1,50 @@
+@()
+
+@import b3.vertical.fieldConstructor
+
+@init_main("Users per project") {
+    <!-- Fixed navbar -->
+    @common.top_navigation()
+
+    <br/> <br/> <br/>
+
+    <div class="container theme-showcase" role="main">
+        @common.navigation(Seq(("Home", "/projects"), ("Project A", "/project_details")), "Users")
+        <div class="row">
+            <div class="col-md-5">
+                <label>List of available users</label>
+                <ul class="list-group">
+                    <li class="list-group-item">One user</li>
+                    <li class="list-group-item">Another user</li>
+                    <li class="list-group-item">Another extra user</li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <br/><br/>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">=></button>
+                <br/>
+                <button class="btn btn-lg btn-primary btn-block" type="submit"><=</button>
+            </div>
+            <div class="col-md-5">
+                <label>List of users associated to the project</label>
+                <ul class="list-group">
+                    <li class="list-group-item">Dimitrios Charoulis</li>
+                    <li class="list-group-item"><b>Erik Janssen</b></li>
+                    <li class="list-group-item">Jose Ceron</li>
+                    <li class="list-group-item">Leonor Boga</li>
+                    <li class="list-group-item">Mahya Mirtar</li>
+                    <li class="list-group-item">Maria Dominguez</li>
+                    <li class="list-group-item">Martin Kok</li>
+                    <li class="list-group-item">Vijay Kiran</li>
+                </ul>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-2">
+                <a href="/project_details" class="btn btn-primary" role="button">Save</a>
+            </div>
+        </div>
+        <br/>
+    </div>
+}

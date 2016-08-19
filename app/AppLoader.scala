@@ -1,8 +1,10 @@
-import controllers.TEAHubController
+import controllers.{TEAHubController, UIController}
 import play.api.{Application, ApplicationLoader, BuiltInComponentsFromContext, LoggerConfigurator}
 import play.api.ApplicationLoader.Context
 import play.api.libs.ws.ahc.AhcWSClient
+import play.api.i18n._
 import services.impl.ApiTogglService
+
 import scala.concurrent.ExecutionContext
 import router.Routes
 
@@ -29,12 +31,14 @@ class AppLoader extends ApplicationLoader {
   *
   * @param context is the context for loading an application. It includes Environment, initial configuration,
   *                web command handler, and optional source mapper */
-class AppComponent(context: Context)(implicit val ec: ExecutionContext) extends BuiltInComponentsFromContext(context) {
+class AppComponent(context: Context)(implicit val ec: ExecutionContext) extends BuiltInComponentsFromContext(context) with I18nComponents {
   lazy val togglService = new ApiTogglService(AhcWSClient())
+  lazy val uiController = new UIController(messagesApi)(ec)
   lazy val teahubController = new TEAHubController(togglService)
   lazy val assetsController = new controllers.Assets(httpErrorHandler)
 
   lazy val router = new Routes(httpErrorHandler,
+    uiController,
     teahubController,
     assetsController
   )
