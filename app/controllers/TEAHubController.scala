@@ -32,6 +32,7 @@ class TEAHubController(togglService: TogglService, apiGitHubService: ApiGitHubSe
     result.map {
       theResult =>
         Ok(Json.obj("Projects" -> theResult))
+
     }
   }
 

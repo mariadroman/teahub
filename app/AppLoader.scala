@@ -1,9 +1,10 @@
 import com.typesafe.config.Config
-import controllers.{OAuthGitHubController, TEAHubController}
+import controllers.{OAuthGitHubController, TEAHubController, UIController}
 import play.api.{Application, ApplicationLoader, BuiltInComponentsFromContext, LoggerConfigurator}
 import play.api.ApplicationLoader.Context
 import play.api.cache.EhCacheComponents
 import play.api.libs.ws.ahc.AhcWSClient
+import play.api.i18n._
 import services.impl.{ApiGitHubService, ApiOAuthGitHubService, ApiTogglService}
 import scala.concurrent.ExecutionContext
 import router.Routes
@@ -29,14 +30,13 @@ class AppLoader extends ApplicationLoader {
   }
 }
 
-
 /**
   * Provides all the built in components dependencies from the application loader context
   * @param context is the context for loading an application.
   * @param ec implicit execution context for asynchronous execution of program logic
   */
 class AppComponent(context: Context)(implicit val ec: ExecutionContext) extends BuiltInComponentsFromContext(context)
-  with EhCacheComponents {
+  with EhCacheComponents with I18nComponents {
 
   val config: Config = context.initialConfiguration.underlying
 
@@ -46,11 +46,13 @@ class AppComponent(context: Context)(implicit val ec: ExecutionContext) extends 
   lazy val togglService = new ApiTogglService(AhcWSClient())
   lazy val teahubController = new TEAHubController(togglService, gitHubService, defaultCacheApi)
   lazy val assetsController = new controllers.Assets(httpErrorHandler)
+  lazy val uiController = new UIController(messagesApi)(ec)
 
   lazy val router = new Routes(
     httpErrorHandler,
-    teahubController,
     oauthGitHubController,
+    uiController,
+    teahubController,
     assetsController
   )
 }
