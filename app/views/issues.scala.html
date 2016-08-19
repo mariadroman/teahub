@@ -1,0 +1,54 @@
+@()
+
+@import helper.Implicits._
+@import b3.vertical.fieldConstructor
+
+@main("Issues") {
+    <!-- Fixed navbar -->
+    @common.top_navigation()
+
+    <br/><br/><br/>
+    <div class="container theme-showcase" role="main">
+        @common.navigation(Seq(("Home", "/projects"), ("Project A","/project_details")), "Issue 15")
+        <div class="row">
+            <h1>Project A</h1>
+            <h2>Issue #17: Creating Front End Mockup</h2>
+        </div>
+        <br/>
+        <div class="row">
+            <h3>Toggl entries</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Description</th>
+                    <th>Time spent</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Vijay Kiran</td>
+                    <td>Play and bootstrap description</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>Maria Dominguez</td>
+                    <td>Playing with bootstrap</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>Martin Kok</td>
+                    <td>Designing mockups</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>Maria Dominguez</td>
+                    <td>Implementing static mockups</td>
+                    <td>5</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br/>
+}
