@@ -1,0 +1,2 @@
+GET         /                   controllers.TEAHubController.togglProjects(apiToken:String)
+GET        /assets/*file        controllers.Assets.at(path = "/public", file)
