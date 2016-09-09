@@ -1,2 +1,2 @@
-GET         /                   controllers.TEAHubController.togglProjects(apiToken:String)
+GET         /toggl        controllers.TEAHubController.togglProjects
 GET        /assets/*file        controllers.Assets.at(path = "/public", file)
