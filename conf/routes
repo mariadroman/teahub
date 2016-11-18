@@ -1,2 +1,6 @@
-GET         /toggl        controllers.TEAHubController.togglProjects
-GET        /assets/*file        controllers.Assets.at(path = "/public", file)
+GET         /toggl                      controllers.TEAHubController.togglProjects
+GET         /login                      controllers.OAuthGitHubController.login
+GET         /callback                   controllers.OAuthGitHubController.callback(code: Option[String], state: Option[String])
+GET         /success                    controllers.OAuthGitHubController.success
+GET         /main                       controllers.TEAHubController.githubRepositories
+GET         /assets/*file               controllers.Assets.at(path = "/public", file)

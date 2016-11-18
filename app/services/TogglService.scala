@@ -5,16 +5,21 @@ import scala.concurrent.Future
 import play.api.libs.json._
 
 /**
-  * Is the interface of the Toggl service which is suppose to get the list of Toggl projects*/
+  * This is the interface of the Toggl service which is supposed to get the list of projects in a workspace.
+  */
 trait TogglService {
 
-  import TogglService._
-
-  /** Returns a Future List of the projects' name in Toggl */
+  /**
+    * Get a list of the project names in a Toggl workspace
+    * @param ApiToken
+    * @return a Future list of project names
+    */
   def getTogglProjects(ApiToken: String): Future[List[String]]
 }
 
-/** Companion object that includes case classes, Reads and Writes to convert Toggl Json response */
+/**
+  * Companion object including case class model for Toggl projects, and Reads/Writes to convert from/to json format.
+  */
 object TogglService {
 
   /**
@@ -31,7 +36,8 @@ object TogglService {
     * @param at             Indicates the time task was last updated
     * @param created_at     Timestamp indicating when the project was created
     * @param color          ID of the color selected for the project
-    * @param auto_estimates Whether the estimated hours are automatically calculated based on task estimations or manually fixed based on the value of 'estimated_hours'
+    * @param auto_estimates Whether the estimated hours are automatically calculated based on task estimations or
+    *                       manually fixed based on the value of 'estimated_hours'
     * @param actual_hours   Hours that has been spent on the project
     * @param hex_color      Project tag color
     **/
