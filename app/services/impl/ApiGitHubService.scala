@@ -22,8 +22,10 @@ class ApiGitHubService(ws: WSClient, cacheApi: CacheApi) (implicit val ec: Execu
   override def getGitHubProjects(oauthToken: Option[String]): Future[List[String]] = {
     oauthToken match {
       case Some(token) => {
-        ws.url("https://api.github.com/user/repos").
-          withHeaders(HeaderNames.AUTHORIZATION -> s"token $token").get.map{ response =>
+        val request = ws.url("https://api.github.com/user/repos")
+          .withHeaders(HeaderNames.AUTHORIZATION -> s"token $token")
+
+         request.get.map{ response =>
           response.json.as[List[GitHubService.Repo]].map(x => x.name)
         }
       }

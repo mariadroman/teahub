@@ -1,5 +1,7 @@
 package controllers
 
+import java.util.concurrent.TimeUnit
+
 import play.api.cache.CacheApi
 import play.api.libs.json.Json
 import play.api.cache.CacheApi
@@ -7,6 +9,8 @@ import play.api.mvc.Action
 import play.api.mvc._
 import services.TogglService
 import services.impl.ApiGitHubService
+
+import scala.concurrent.duration.Duration
 import scala.concurrent.{ExecutionContext, Future}
 
 /**
@@ -26,27 +30,26 @@ class TEAHubController(togglService: TogglService, apiGitHubService: ApiGitHubSe
   //TODO: This method just takes the project names; in future it should show the result in the related page in TEAHUB.
   def togglProjects = Action.async { implicit request =>
 
-        def cacheKey(apiKey: String) = s"ProjectName.$apiKey"
+    def cacheKey(apiKey: String) = s"ProjectName.$apiKey"
 
-        val toggleToken: Option[String] = request.getQueryString("apiToken")
+    val toggleToken: Option[String] = request.getQueryString("apiToken")
 
-        val result: Future[List[String]] = toggleToken match {
-          case Some(token) => {
-            cache.get[Future[List[String]]](cacheKey(token)) match {
-              case None =>
-                val projectsName = togglService.getTogglProjects(token)
-                cache.set(cacheKey(token), projectsName)
-                projectsName
-              case Some(list) => list
-            }
-
-          }
-          case None => Future.successful(List.empty)
+    val result: Future[List[String]] = toggleToken match {
+      case Some(token) => {
+        cacheApi.get[Future[List[String]]](cacheKey(token)) match {
+          case None =>
+            val projectsName = togglService.getTogglProjects(token)
+            cacheApi.set(cacheKey(token), projectsName, Duration(60, TimeUnit.SECONDS))
+            projectsName
+          case Some(list) => list
         }
-        result.map {
-          theResult =>
-            Ok(Json.obj("Projects" -> theResult))
-        }
+
+      }
+      case None => Future.successful(List.empty)
+    }
+    result.map {
+      theResult =>
+        Ok(Json.obj("Projects" -> theResult))
     }
   }
 

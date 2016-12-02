@@ -1,9 +1,14 @@
 package controllers
 
+import java.util.concurrent.TimeUnit
+
 import play.api.cache.CacheApi
+import play.api.cache._
 import play.api.libs.ws.WSClient
 import play.api.mvc._
 import services.impl.ApiOAuthGitHubService
+
+import scala.concurrent.duration.Duration
 import scala.concurrent.{ExecutionContext, Future}
 
 /**
@@ -59,7 +64,7 @@ class OAuthGitHubController(oauthGitHubService: ApiOAuthGitHubService, ws: WSCli
     */
   def success() = Action.async { request =>
     request.session.get("oauth-token").fold(Future.successful(Unauthorized("No way Jose"))) { authToken =>
-      cacheApi.set("authToken", authToken)
+      cacheApi.set("authToken", authToken, Duration(60, TimeUnit.SECONDS))
       Future(Redirect(routes.TEAHubController.githubRepositories()))
     }
   }
