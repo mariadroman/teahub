@@ -5,7 +5,6 @@ import com.typesafe.config.Config
 import play.api.http.{HeaderNames, MimeTypes}
 import play.api.libs.ws.WSClient
 import play.api.mvc.Results
-
 import scala.concurrent.{ExecutionContext, Future}
 
 /**
@@ -23,7 +22,7 @@ class ApiOAuthGitHubService(config: Config, ws: WSClient)(implicit executionCont
   val scope = config.getString("github.client.scope")
 
   /**
-    * Create the url with the required paremeters to connect initiate OAuth authentication between TEAHub and GitHub.
+    * Create the url with the required parameters to connect initiate OAuth authentication between TEAHub and GitHub.
     * @return a tuple containing the complete URL and the `state` parameter used in the request.
     */
   def oauthGitHubConnectUrl: (String, String) = {

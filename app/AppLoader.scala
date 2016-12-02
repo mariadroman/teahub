@@ -40,8 +40,8 @@ class AppComponent(context: Context)(implicit val ec: ExecutionContext) extends 
   val config: Config = context.initialConfiguration.underlying
 
   lazy val oauthGitHubService = new ApiOAuthGitHubService(config, AhcWSClient())
-  lazy val oauthGitHubController = new OAuthGitHubController(oauthGitHubService, AhcWSClient(), defaultCacheApi)
-  lazy val gitHubService = new ApiGitHubService(AhcWSClient(), defaultCacheApi)
+  lazy val oauthGitHubController = new OAuthGitHubController(oauthGitHubService)
+  lazy val gitHubService = new ApiGitHubService(AhcWSClient())
   lazy val togglService = new ApiTogglService(AhcWSClient())
   lazy val teahubController = new TEAHubController(togglService, gitHubService, defaultCacheApi)
   lazy val assetsController = new controllers.Assets(httpErrorHandler)

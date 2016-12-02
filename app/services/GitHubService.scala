@@ -4,17 +4,17 @@ import play.api.libs.json.{Format, Json}
 import scala.concurrent.Future
 
 /**
-  * This is the interface of the GitHub service which is supposed to reture the list of projects that a user can
-  * access in github.
+  * This is the interface of the GitHub service which returns the list of repositories that a user can
+  * access in Github.
   */
 trait GitHubService {
 
   /**
-    * Get a list of projects for a certain github account
-    * @param oauthToken
-    * @return a Future List of github repositories
+    * Get a list of projects for a certain Github account
+    * @param oauthToken Authentication token which is received from Github
+    * @return a Future List of Github repositories
     */
-  def getGitHubProjects(oauthToken: Option[String]): Future[List[String]]
+  def getGitHubProjects(oauthToken: String): Future[List[String]]
 }
 
 
@@ -65,7 +65,7 @@ object GitHubService {
                   )
 
   /**
-    * Model case class for the permissions applied on a certain github repository
+    * Model case class for the permissions applied on a certain Github repository
     * @param admin
     * @param push
     * @param pull
@@ -117,54 +117,6 @@ object GitHubService {
                    branches_url:String,
                    tags_url:String,
                    blobs_url:String,
-                   //git_tags_url:String,
-                   //git_refs_url:String,
-                   //trees_url:String,
-                   //statuses_url:String,
-                   //languages_url:String,
-                   //stargazers_url:String,
-                   //contributors_url:String,
-                   //subscribers_url:String,
-                   //subscription_url:String,
-                   //commits_url:String,
-                   //git_commits_url:String,
-                   //comments_url:String,
-                   //issue_comment_url:String,
-                   //contents_url:String,
-                   //compare_url:String,
-                   //merges_url:String,
-                   //archive_url:String,
-                   //downloads_url:String,
-                   //issues_url:String,
-                   //pulls_url:String,
-                   //milestones_url:String,
-                   //notifications_url:String,
-                   //labels_url:String,
-                   //releases_url:String,
-                   //deployments_url:String,
-                   //created_at:String,
-                   //updated_at:String,
-                   //pushed_at:String,
-                   //git_url:String,
-                   //ssh_url:String,
-                   //clone_url:String,
-                   //svn_url:String,
-                   //homepage:String,
-                   //size:Int,
-                   //stargazers_count:Int,
-                   //watchers_count:Int,
-                   //language:String,
-                   //has_issues: Boolean,
-                   //has_downloads:Boolean,
-                   //has_wiki:Boolean,
-                   //has_pages:Boolean,
-                   //forks_count:Int,
-                   //mirror_url:String,
-                   //open_issues_count:Int,
-                   //forks:Int,
-                   //open_issues:Int,
-                   //watchers:Int,
-                   //default_branch:String,
                    permissions: Permission
                  )
 
