@@ -1,0 +1,40 @@
+@()
+
+@import b3.vertical.fieldConstructor
+
+@main("User management") {
+    <!-- Fixed navbar -->
+    @common.top_navigation()
+
+    <br/> <br/> <br/>
+    <div class="container theme-showcase" role="main">
+        @common.navigation(Seq(("Home", "/projects")), "User management")
+        <br/>
+        <div class="row">
+            <h3>List of users</h3>
+            <ul class="list-group">
+                <li class="list-group-item">Dimitrios Charoulis</li>
+                <li class="list-group-item"><b>Erik Janssen</b></li>
+                <li class="list-group-item">Jose Ceron</li>
+                <li class="list-group-item">Leonor Boga</li>
+                <li class="list-group-item">Mahya Mirtar</li>
+                <li class="list-group-item">Maria Dominguez</li>
+                <li class="list-group-item">Martin Kok</li>
+                <li class="list-group-item">Vijay Kiran</li>
+                <li class="list-group-item">Another user A</li>
+                <li class="list-group-item">Another user B</li>
+                <li class="list-group-item">Another user C</li>
+            </ul>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-2">
+                <a href="/profile" class="btn btn-primary" role="button">Add user</a>
+            </div>
+            <div class="col-md-2">
+                <a href="/profile" class="btn btn-primary" role="button">Edit user</a>
+            </div>
+        </div>
+    </div>
+    <br/>
+}

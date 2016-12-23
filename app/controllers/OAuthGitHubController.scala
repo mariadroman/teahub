@@ -14,7 +14,8 @@ class OAuthGitHubController(oauthGitHubService: ApiOAuthGitHubService)
                            (implicit executionContext: ExecutionContext) extends Controller {
 
   /**
-    * Make the initial request to authenticate via GitHub with OAuth protocol.
+    * Make the initial request to authenticate via GitHub with OAuth protocol. The response will be sent to the
+    * `redirect_url` and will be handled by the [[callback()]] function
     * @return Renders the login page and creates a session with the `oauth-state` in it.
     */
   def login = Action.async { implicit request =>

@@ -15,6 +15,7 @@ trait TogglService {
     * @return a Future list of project names
     */
   def getTogglProjects(ApiToken: String): Future[List[String]]
+  def getTogglWorkspace(ApiToken: String): Future[List[String]]
 }
 
 /**
@@ -46,8 +47,23 @@ object TogglService {
                      template: Boolean, at: DateTime, created_at: DateTime,
                      color: String, auto_estimates: Boolean, actual_hours: Int, hex_color: String)
 
+
+  case class Workspace(id: Long,
+                       name: String,
+                       premium: Boolean,
+                       admin: Boolean,
+                       default_hourly_rate: Int,
+                       default_currency: String,
+                       only_admins_may_create_projects: Boolean,
+                       only_admins_see_billable_rates: Boolean,
+                       rounding: Int,
+                       rounding_minutes: Int,
+                       at: DateTime,
+                       logo_url: String)
+
   implicit val dateReads = Reads.jodaDateReads("yyyy-MM-dd'T'HH:mm:ssZZ")
   implicit val dateWrites = Writes.jodaDateWrites("yyyy-MM-dd'T'HH:mm:ss")
   implicit val projectFormat: Format[Project] = Json.format[Project]
+  implicit val workspaceFormat: Format[Workspace] = Json.format[Workspace]
 
 }

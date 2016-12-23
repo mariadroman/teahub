@@ -1,0 +1,29 @@
+@(togglTokenForm: Form[String])(implicit messages: Messages)
+
+@import b3.vertical.fieldConstructor
+
+@main("Connect to Toggle") {
+
+    @common.top_navigation()
+
+    <br/> <br/> <br/>
+    <div class="container theme-showcase" role="main">
+        <div class="container-main">
+            <div class="row">
+                <div class="col-md-8">
+                    <div style="height: 150px">
+                        It seems you have no link to Toggl yet... please add your token so TEAHub can register your contributions!
+                        (This page is only shown the first time asking you to enter the toggl project).
+                        <br/> <br/>
+                        @b3.form(routes.UIController.list) {
+                            @b3.text(togglTokenForm("togglToken"), '_label -> "token", 'placeholder -> "Please insert Toggle token")
+                            <a href="/projects" class="btn btn-primary" role="button">Next</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+
+}

@@ -1,0 +1,57 @@
+@()
+
+@main("Projects") {
+    <!-- Fixed navbar -->
+    @common.top_navigation()
+
+    <br/> <br/> <br/>
+
+    <div class="container theme-showcase" role="main">
+        @common.navigation(Seq(("Home", "")), "")
+        <p>Here we load the TEAHub projects and allow the user to create new projects.</p>
+        <div class="container-main">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Project name</th>
+                                <th>Number of issues (estimated / non estimated)</th>
+                                <th>Total estimation in hours</th>
+                                <th>Milestones date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><a href="/project_details">TEAHub</a></td>
+                                <td>21 (4/17)</td>
+                                <td>20</td>
+                                <td>10/10/2016</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Phylax</td>
+                                <td>21 (4/17)</td>
+                                <td>20</td>
+                                <td>10/10/2016</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Proximio</td>
+                                <td>21 (4/17)</td>
+                                <td>20</td>
+                                <td>10/10/2016</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div>
+            <a href="/new_project" class="btn btn-primary" role="button">Add project</a>
+        </div>
+        <br/>
+    </div>
+}

@@ -1,7 +1,25 @@
 @(message: String, redirectUrl: String)
 
-@main(s"$message") {
-<h2>Welcome to TeaHub !</h2>
-<h2>Not Yet Authenticated</h2>
-<a href="@redirectUrl"><em><b>Log in with GitHub account</b></em></a>
+@import helper.Implicits._
+@import b3.vertical.fieldConstructor
+
+@main("Welcome to TEAHub") {
+<div class="container theme-showcase" role="main">
+    <div class="container-main">
+        <div class="row">
+            <div class="col-md-12">
+                <div style="height: 150px">
+                    <h1>Welcome to TEAHub, have a cup.</h1>
+                    <p>Here you will see a description of TEAHub.</p>
+                    <p>Currently, "Sign in" button leads you to the first screen when you login for the first time.</p>
+                    <p>And "Sign up" button shows functionality to connect to GitHub to authorize the application. For this, you need to add a `github.client.id` and `github.client.secret` in application.conf.</p>
+
+                    <a href="/projects_setup" class="btn btn-primary" role="button">Sign in</a>
+                    <a href="@redirectUrl" class="btn btn-primary" role="button">Sign up</a>
+                </div>
+            </div>
+        </div>
+        <br/><br/><br/><br/>
+    </div>
+</div>
 }

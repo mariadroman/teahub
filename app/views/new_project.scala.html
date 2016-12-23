@@ -1,0 +1,55 @@
+@(projectNameForm: Form[String])(implicit messages: Messages)
+
+@import helper.Implicits._
+@import b3.vertical.fieldConstructor
+
+@main("New project") {
+    <!-- Fixed navbar -->
+    @common.top_navigation()
+
+    <br/><br/><br/>
+
+    <div class="container theme-showcase" role="main">
+        @common.navigation(Seq(("Home", "/projects")), "New project")
+        <div class="container-main">
+            <div class="row">
+                <div class="col-md-12">
+                    @b3.text(projectNameForm("projectName"), '_label -> "Project name", 'placeholder -> "Project name")
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Here we load the GitHub projects.</p>
+                    <div class="form-group">
+                        <label for="selGithub">Select GitHub project:</label>
+                        <select class="form-control" id="selGithub">
+                            <option>TEAHub</option>
+                            <option>Phylax</option>
+                            <option>Proximio</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p>Here we load the Toggl projects.</p>
+                    <div class="form-group">
+                        <label for="selToggl">Select Toggl project:</label>
+                        <select class="form-control" id="selToggl">
+                            <<option>TEAHub</option>
+                            <option>Phylax</option>
+                            <option>Proximio</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="/projects" class="btn btn-primary" role="button">Save</a>
+                    <a href="/projects" class="btn btn-primary" role="button">Cancel</a>
+                </div>
+            </div>
+        </div>
+        <br/>
+    </div>
+
+    <br/>
+}
