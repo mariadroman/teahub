@@ -1,0 +1,11 @@
+@(locations: Seq[(String, String)], active: String)
+<div class="row">
+    <ol class="breadcrumb">
+        @for(loc <- locations) {
+            <li><a href="@loc._2">@loc._1</a></li>
+        }
+        @if(active != ""){
+            <li class="active">@active</li>
+        }
+    </ol>
+</div>

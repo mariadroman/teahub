@@ -1,0 +1,75 @@
+@()
+
+@main("Project details") {
+    <!-- Fixed navbar -->
+    @common.top_navigation()
+
+    <br/><br/><br/>
+    <div class="container theme-showcase" role="main">
+        @common.navigation(Seq(("Home", "/projects")), "Project A")
+        <div class="row">
+            <h1>Project A</h1>
+            <a href="https://github.com/lunatech-labs/teahub" target="_blank">See the project in GitHub</a>
+        </div>
+        <br/>
+        <div class="row">
+            <h3>Open issues</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Description</th>
+                    <th>Milestone</th>
+                    <th>Label</th>
+                    <th>Priority</th>
+                    <th>Time estimation</th>
+                    <th>Time spent</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>17</td>
+                    <td>Creating Front End Mockup<br><a href="https://github.com/lunatech-labs/teahub/teahub/issues/17" target="_blank">(view on GitHub)</a> <a href="/issues">(view details)</a></td>
+                    <td>20/12/2016</td>
+                    <td>FE</td>
+                    <td>3</td>
+                    <td><input type="text" style="width: 35px; text-align: right" name="estimation" value="10"></td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td>Implementation of sign in/sign up flow through Github<br><a href="https://github.com/lunatech-labs/teahub/teahub/issues/15" target="_blank">(view on GitHub)</a> <a href="/issues">(view details)</a></td>
+                    <td>20/12/2016</td>
+                    <td>-</td>
+                    <td>1</td>
+                    <td><input type="text" style="width: 35px; text-align: right" name="estimation" value="10"></td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <td>16</td>
+                    <td>Implementation of accessing to the Toggl projects<br><a href="https://github.com/lunatech-labs/teahub/teahub/issues/16" target="_blank">(view on GitHub)</a> <a href="/issues">(view details)</a></td>
+                    <td>20/12/2016</td>
+                    <td>-</td>
+                    <td>5</td>
+                    <td><input type="text" style="width: 35px; text-align: right" name="estimation" value="7"></td>
+                    <td>-</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <h3>Project participants</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="https://github.com/dcharoulis" target="_blank">Dimitrios Charoulis</a></li>
+                <li class="list-group-item"><a href="https://github.com/erikwj" target="_blank"><b>Erik Janssen</b></a></li>
+                <li class="list-group-item"><a href="https://github.com/joceron" target="_blank">Jose Ceron</a></li>
+                <li class="list-group-item"><a href="https://github.com/LeonorLunatech" target="_blank">Leonor Boga</a></li>
+                <li class="list-group-item"><a href="https://github.com/mahyaa" target="_blank">Mahya Mirtar</a></li>
+                <li class="list-group-item"><a href="https://github.com/mariadroman" target="_blank">Maria Dominguez</a></li>
+                <li class="list-group-item"><a href="https://github.com/martinkok" target="_blank">Martin Kok</a></li>
+                <li class="list-group-item"><a href="https://github.com/vijaykiran" target="_blank">Vijay Kiran</a></li>
+            </ul>
+        </div>
+    </div>
+<br/>
+}
