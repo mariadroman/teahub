@@ -1,8 +1,10 @@
 package services
 
 import org.joda.time.DateTime
+
 import scala.concurrent.Future
 import play.api.libs.json._
+import services.TogglService.Project
 
 /**
   * This is the interface of the Toggl service which is supposed to get the list of projects in a workspace.
@@ -11,11 +13,12 @@ trait TogglService {
 
   /**
     * Get a list of the project names in a Toggl workspace
-    * @param ApiToken
-    * @return a Future list of project names
+    *
+    * @param ApiToken The unique API token of the Toggle user
+    * @return A Future list of projects
     */
-  def getTogglProjects(ApiToken: String): Future[List[String]]
-  def getTogglWorkspace(ApiToken: String): Future[List[String]]
+  def getTogglProjects(ApiToken: String): Future[List[Project]]
+  def getTogglWorkspace(ApiToken: String): Future[List[Long]]
 }
 
 /**
@@ -50,16 +53,20 @@ object TogglService {
 
   case class Workspace(id: Long,
                        name: String,
+                       profile: Int,
                        premium: Boolean,
                        admin: Boolean,
-                       default_hourly_rate: Int,
                        default_currency: String,
                        only_admins_may_create_projects: Boolean,
                        only_admins_see_billable_rates: Boolean,
+                       only_admins_see_team_dashboard: Boolean,
+                       projects_billable_by_default: Boolean,
                        rounding: Int,
                        rounding_minutes: Int,
                        at: DateTime,
-                       logo_url: String)
+                       logo_url: String,
+                       ical_url: String,
+                       ical_enabled: Boolean)
 
   implicit val dateReads = Reads.jodaDateReads("yyyy-MM-dd'T'HH:mm:ssZZ")
   implicit val dateWrites = Writes.jodaDateWrites("yyyy-MM-dd'T'HH:mm:ss")
