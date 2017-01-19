@@ -3,9 +3,11 @@ package services.impl
 import services.TogglService
 import services.TogglService.{Project, Workspace}
 import play.api.libs.ws.WSClient
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{Await, ExecutionContext, Future}
 import play.api.libs.ws.WSAuthScheme.BASIC
 import play.api.libs.json._
+
+import scala.concurrent.duration._
 
 /**
   * Implimatation of [[TogglService]]
@@ -23,7 +25,17 @@ class ApiTogglService(ws: WSClient)(implicit val ec: ExecutionContext) extends T
     //TODO: The workspace ID should be passed to this method.
     // Meanwhile, in order to test change the xxxx to a roper workspace.
 
-    val request = ws.url(s"https://www.toggl.com/api/v8/workspaces/xxxx/projects")
+    val workspace = getTogglWorkspace(apiToken)
+    System.out.println("JOSE: workspace "+workspace)
+    // for {res <- workspace } yield res.foreach(println)
+    val duration = Duration(2, SECONDS)
+    val myResult  = Await.result(workspace,duration)
+    System.out.println("JOSE: before the big thing")
+    val test=myResult.head
+    myResult.foreach(println)
+    System.out.println("JOSE: and the head "+test)
+
+    val request = ws.url(s"https://www.toggl.com/api/v8/workspaces/"+test+"/projects")
       .withHeaders("Content-Type" -> "application/Json")
       .withAuth(apiToken, "api_token", BASIC)
 
@@ -38,20 +50,28 @@ class ApiTogglService(ws: WSClient)(implicit val ec: ExecutionContext) extends T
     }
   }
 
-  override def getTogglWorkspace(apiToken: String): Future[List[String]] = {
+  override def getTogglWorkspace(apiToken: String): Future[List[Long]] = {
+    println("el primero - " + apiToken)
     val request = ws.url("https://www.toggl.com/api/v8/workspaces")
       .withHeaders("Content-Type" -> "application/Json")
       .withAuth(apiToken, "api_token", BASIC)
 
+    println("el segundo - " + request.get())
+
     request.get().map { response =>
+      println(s"Dentro response: ")
+      println(s"${response.body}")
       val bodyJSValue: JsValue = Json.parse(response.body)
       val validateBody = bodyJSValue.validate[List[Workspace]]
       validateBody match {
         case JsSuccess(workspaceList: List[Workspace], _) =>
-          workspaceList.map(_.name)
+          println("Ben")
+          workspaceList.map(_.id)
         case JsError(_) =>
+          println("Bad")
           List.empty
         case _ =>
+          println("Really bad")
           List.empty
       }
     }

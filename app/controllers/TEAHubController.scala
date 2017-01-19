@@ -29,6 +29,7 @@ class TEAHubController(togglService: TogglService, apiGitHubService: ApiGitHubSe
 
     def cacheKey(apiKey: String) = s"ProjectName.$apiKey"
 
+    // TODO: this should be provided by the user
     val toggleToken: Option[String] = request.getQueryString("apiToken")
 
     val result: Future[List[String]] = toggleToken match {
