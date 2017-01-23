@@ -1,5 +1,5 @@
 GET     /                       controllers.OAuthGitHubController.login
-GET     /projects               controllers.UIController.list
+POST    /projects               controllers.UIController.list
 GET     /projects_setup         controllers.UIController.setup
 GET     /project_details        controllers.UIController.details
 GET     /profile                controllers.UIController.profile
