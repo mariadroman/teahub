@@ -8,14 +8,15 @@ import play.api.data.Forms._
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, Controller}
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.Duration
 
 /**
-  * This controller is mainly responsible for linking the mockups.
+  * This controller is mainly responsible for linking the views.
   *
   * @param messagesApi      the messagesAPI for internationalisation.
   * @param executionContext the execution context for asynchronous execution of program logic
+  * @param teaHubController The controller that calls the API from Github and Toggl
   */
 class UIController(val messagesApi: MessagesApi, cacheApi: CacheApi, teaHubController: TEAHubController)
                   (implicit executionContext: ExecutionContext) extends Controller with I18nSupport {

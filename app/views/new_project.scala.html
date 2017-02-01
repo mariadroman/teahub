@@ -1,4 +1,4 @@
-@(projectNameForm: Form[String], togglProjects: List[String])(implicit messages: Messages)
+@(projectNameForm: Form[String], togglProjects: List[services.TogglService.Project])(implicit messages: Messages)
 
 @import helper.Implicits._
 @import b3.vertical.fieldConstructor
@@ -35,7 +35,7 @@
                         <label for="selToggl">Select Toggl project:</label>
                         <select class="form-control" id="selToggl">
                             @for(project <- togglProjects) {
-                                <option>@project</option>
+                                <option>@project.name</option>
                             }
                         </select>
                     </div>

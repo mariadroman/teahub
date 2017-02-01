@@ -11,10 +11,11 @@ trait TogglService {
 
   /**
     * Get a list of the project names in a Toggl workspace
-    * @param ApiToken
-    * @return a Future list of project names
+    *
+    * @param ApiToken The unique API token of the Toggle user
+    * @return A Future list of projects
     */
-  def getTogglProjects(ApiToken: String): Future[List[String]]
+  def getTogglProjects(ApiToken: String): Future[List[TogglService.Project]]
   def getTogglWorkspace(ApiToken: String): Future[List[Long]]
 }
 

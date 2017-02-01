@@ -1,20 +1,22 @@
 package controllers
 
-import java.util.concurrent.TimeUnit
 import play.api.libs.json.Json
 import play.api.cache.CacheApi
 import play.api.mvc.Action
 import play.api.mvc._
+
 import services.TogglService
 import services.impl.ApiGitHubService
-import scala.concurrent.duration.Duration
+import services.TogglService.Project
+
 import scala.concurrent.{ExecutionContext, Future}
 
 /**
   * This is the controller responsible for the actions related to communication between TEAHub and GitHub/Toggl.
-  * @param togglService the service that makes the requests to Toggl
+  *
+  * @param togglService     the service that makes the requests to Toggl
   * @param apiGitHubService the service that makes the requests to GitHub
-  * @param cacheApi the application cache
+  * @param cacheApi         the application cache
   * @param executionContext the execution context for asynchronous execution of program logic
   */
 class TEAHubController(togglService: TogglService, apiGitHubService: ApiGitHubService, cacheApi: CacheApi)
@@ -22,9 +24,10 @@ class TEAHubController(togglService: TogglService, apiGitHubService: ApiGitHubSe
 
   /**
     * Get list of Toggl projects
+    *
     * @return A json object containing the list of Toggl projects
     */
-  def togglProjects: Future[List[String]] = {
+  def togglProjects: Future[List[Project]] = {
     def cacheKey(apiKey: String) = s"ProjectName.$apiKey"
 
     val togglToken = cacheApi.get[String]("togglToken") match {
@@ -38,10 +41,11 @@ class TEAHubController(togglService: TogglService, apiGitHubService: ApiGitHubSe
 
   /**
     * Get list of GitHub repositories
+    *
     * @return A json object containing the list of GitHub repositories.
     */
   def githubRepositories = Action.async { implicit request =>
-     val result: Future[List[String]] = request.session.get("oauth-token").map { token =>
+    val result: Future[List[String]] = request.session.get("oauth-token").map { token =>
       apiGitHubService.getGitHubProjects(token)
     }.getOrElse(Future.successful(List.empty))
 

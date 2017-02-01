@@ -7,11 +7,11 @@ import play.api.libs.ws.WSClient
 import play.api.libs.ws.WSAuthScheme.BASIC
 import play.api.libs.json._
 
-import scala.concurrent.{Await, ExecutionContext, Future}
-import scala.concurrent.duration._
+import scala.concurrent.{ExecutionContext, Future}
 
 /**
-  * Implimatation of [[TogglService]]
+  * Implementation of [[TogglService]]
+  *
   * @param ws the WS client
   * @param ec the execution context for asynchronous execution of program logic
   */
@@ -19,11 +19,11 @@ class ApiTogglService(ws: WSClient)(implicit val ec: ExecutionContext) extends T
 
   /**
     * Request Toggl the list of all projects inside the specified workspace
+    *
     * @param apiToken to access a certain Toggl workspace
     * @return the list of all Toggle projects in the workspace
     */
-  override def getTogglProjects(apiToken: String): Future[List[String]] = {
-    // Getting the workspace ID
+  override def getTogglProjects(apiToken: String): Future[List[Project]] = {
     for {
       workspaceID <- getTogglWorkspace(apiToken)
       request <- ws.url(s"https://www.toggl.com/api/v8/workspaces/" + workspaceID.head + "/projects")
@@ -33,7 +33,7 @@ class ApiTogglService(ws: WSClient)(implicit val ec: ExecutionContext) extends T
         val validateBody = bodyJSValue.validate[List[Project]]
         ws.close()
         validateBody match {
-          case JsSuccess(projectList: List[Project], _) => projectList.map(_.name)
+          case JsSuccess(projectList: List[Project], _) => projectList
           case JsError(_) => List.empty
         }
       }
@@ -41,11 +41,17 @@ class ApiTogglService(ws: WSClient)(implicit val ec: ExecutionContext) extends T
     } yield request
   }
 
+  /**
+    * Gets the workspace ID
+    *
+    * @param apiToken API token provided by the user
+    * @return List that always contains a single element: the workspace ID
+    */
   override def getTogglWorkspace(apiToken: String): Future[List[Long]] = {
     val request = ws.url("https://www.toggl.com/api/v8/workspaces")
       .withHeaders("Content-Type" -> "application/Json")
       .withAuth(apiToken, "api_token", BASIC)
-System.out.println("JOSEEEEEE "+apiToken)
+
     request.get().map { response =>
       val bodyJSValue: JsValue = Json.parse(response.body)
       val validateBody = bodyJSValue.validate[List[Workspace]]
