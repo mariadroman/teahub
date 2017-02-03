@@ -1,12 +1,11 @@
 GET     /                       controllers.OAuthGitHubController.login
-GET     /projects               controllers.UIController.list
+POST    /projects               controllers.UIController.list
 GET     /projects_setup         controllers.UIController.setup
 GET     /project_details        controllers.UIController.details
 GET     /profile                controllers.UIController.profile
 GET     /new_project            controllers.UIController.newProject
 GET     /issues                 controllers.UIController.issues
 GET     /user_management        controllers.UIController.management
-GET     /toggl                  controllers.TEAHubController.togglProjects
 GET     /callback               controllers.OAuthGitHubController.callback(code: Option[String], state: Option[String])
 GET     /success                controllers.OAuthGitHubController.success
 GET     /raw_projects           controllers.TEAHubController.githubRepositories
