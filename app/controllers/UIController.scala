@@ -22,17 +22,21 @@ class UIController(val messagesApi: MessagesApi, cacheApi: CacheApi, teaHubContr
 
   def management = Action { implicit request => Ok(views.html.user_management()) }
 
-  def list = Action { implicit request => {
-      togglTokenForm.bindFromRequest().fold(
-        error => // Warning here because 'error' is never used
-          BadRequest(views.html.setup_projects(togglTokenForm, "An error occurred.")),
-        data => {
-          cacheApi.set("togglToken", data, Duration(1, TimeUnit.DAYS)) // TODO: in the future this will be stored on
-                                                                       // the DB
-          Ok(views.html.projects())
-        }
-      )
-    }
+  def listPost = Action { implicit request => {
+    togglTokenForm.bindFromRequest().fold(
+      error => // Warning here because 'error' is never used
+        BadRequest(views.html.setup_projects(togglTokenForm, "An error occurred.")),
+      data => {
+        cacheApi.set("togglToken", data, Duration(1, TimeUnit.DAYS)) // TODO: in the future this will be stored on
+        // the DB
+        Ok(views.html.projects())
+      }
+    )
+  }
+  }
+
+  def listGet = Action { implicit request =>
+    Ok(views.html.projects())
   }
 
   def setup = Action { implicit request => Ok(views.html.setup_projects(togglTokenForm, "")) }

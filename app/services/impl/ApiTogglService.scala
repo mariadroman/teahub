@@ -27,7 +27,6 @@ class ApiTogglService(ws: WSClient)(implicit val ec: ExecutionContext) extends T
         .withAuth(apiToken, "api_token", BASIC).get().map { response =>
         val bodyJSValue: JsValue = Json.parse(response.body)
         val validateBody = bodyJSValue.validate[List[Project]]
-        ws.close()
         validateBody match {
           case JsSuccess(projectList: List[Project], _) => projectList
           case JsError(_) => List.empty
