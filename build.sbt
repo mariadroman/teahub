@@ -8,6 +8,8 @@ val playVersion = "2.5.4"
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala)
   .enablePlugins(RoutesCompiler)
+  .enablePlugins(SbtScalariform)
+
 libraryDependencies ++= Seq(
   jdbc,
   cache,
